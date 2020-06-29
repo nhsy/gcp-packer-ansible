@@ -1,0 +1,11 @@
+---
+
+- name: centos base
+  hosts: all
+  gather_facts: yes
+  become: yes
+
+  roles:
+    - centos
+
+...

@@ -1,0 +1,40 @@
+{
+  "variables": {
+    "ansible_playbook": "playbooks/centos.yml",
+    "image_encryption_key": "",
+    "image_family": "",
+    "instance_name": "centos7-{{isotime \"20060102\"}}-{{split uuid \"-\" 0}}",
+    "machine_type": "n1-standard-1",
+    "metadata_script": "",
+    "project_id": "{{env `GCP_PROJECT`}}",
+    "source_image_family": "centos-7",
+    "zone": "europe-west2-a"
+  },
+  "builders": [
+    {
+      "type": "googlecompute",
+      "disk_size": 20,
+      "disk_type": "pd-standard",
+      "image_encryption_key": { "kmsKeyName": "{{user `image_encryption_key`}}" },
+      "image_family": "{{user `image_family`}}",
+      "image_name": "{{user `instance_name`}}",
+      "instance_name": "{{user `instance_name`}}",
+      "machine_type": "{{user `machine_type`}}",
+      "project_id": "{{user `project_id`}}",
+      "source_image_family": "{{user `source_image_family`}}",
+      "ssh_username": "builder",
+      "tags": "packer",
+      "zone": "{{user `zone`}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "ansible",
+      "playbook_file": "{{user `ansible_playbook`}}",
+      "extra_arguments": [
+        "-v"
+      ],
+      "user": "builder"
+    }
+  ]
+}

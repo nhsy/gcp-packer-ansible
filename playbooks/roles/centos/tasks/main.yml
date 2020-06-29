@@ -1,0 +1,6 @@
+---
+#tasks file
+
+- import_tasks: install-common.yml
+  tags:
+    - common

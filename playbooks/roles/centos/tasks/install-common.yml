@@ -1,0 +1,28 @@
+---
+
+- name: update yum cache
+  become: true
+  yum:
+    update_cache: true
+
+- name: install epel-release packages
+  become: true
+  yum:
+    name:
+      - epel-release
+    state: present
+
+- name: install common packages
+  become: true
+  yum:
+    name:
+      - curl
+      - git
+      - htop
+      - unzip
+      - vim
+      - wget
+      - zip
+    state: present
+
+...
